@@ -1,0 +1,78 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Schedule List</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="breadcrum__button">
+          <a class="breadcrum__btn" href="{% url 'users:create-event' %}">Create Event<i class="fa-regular fa-plus"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="schedule__list-area pb-60">
+    <div class="schedule__content">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="day-tab-1" tabindex="0">
+          <div class="row">
+            {% for event in events %}
+            <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 mb-30">
+              <div class="schedule__blog-item">
+                <div class="schedule__content">
+                  <div class="schedule__blog-meta">
+                    <div class="news__meta-status">
+                      <span><i class="flaticon-user"></i></span>
+                      <span>{{ event.speaker.name }}</span>
+                    </div>
+                    <div class="news__meta-status">
+                      <span><i class="flaticon-clock"></i></span>
+                      <span>{{ event.time }}</span>
+                    </div>
+                  </div>
+                  <h5 class="schedule__blog-title"><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></h5>
+                  
+                </div>
+                <div class="schedule__blog-thumb w-img">
+                  <div class="schedule__tag-post">
+                    <div class="event__tag-item">
+                      <span><a href="{{ event.get_absolute_url }}">{{ event.venue|truncatechars:20 }}</a></span>
+                    </div>
+                    <div class="event__tag-item">
+                      <span><a href="{{ event.get_absolute_url }}">{{ event.total_seats }} Seats</a></span>
+                    </div>
+                  </div>
+                  <a href="{{ event.get_absolute_url }}">
+                    {% if event.image %}
+                    <img src="{{ event.image.url }}" alt="image not found" />
+                    {% else %}
+                    <img src="{% static 'img/blog/schedule/01.jpg' %}" alt="image not found" />
+                    {% endif %}
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            <div class="col-xxl-12">
+              {% include 'includes/pagination.html' with results=events %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

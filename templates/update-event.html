@@ -1,0 +1,119 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Update Event</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xxl-12">
+      <div class="create__event-area">
+        <div class="body__card-wrapper">
+          <div class="card__header-top">
+            <div class="card__title-inner">
+              <h4 class="event__information-title">Event Information</h4>
+            </div>
+          </div>
+          <form action="{{ event.get_update_url }}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="create__event-main pt-25">
+              <div class="event__left-box">
+                <div class="create__input-wrapper">
+                  <div class="singel__input-field mb-15">
+                    <label class="input__field-text">Event Title</label>
+                    {{ form.title }}
+                  </div>
+                  <div class="event__input mb-15">
+                    <label class="input__field-text">Event Details</label>
+                    {{ form.details }}
+                  </div>
+                </div>
+                <div class="event__update-wrapper">
+                  <div class="popup__update">
+                    <label>Upload Image ( 200x200px )</label>
+                    {{ form.image }}
+                  </div>
+                </div>
+                <div class="row g-20">
+                  <div class="col-xxl-6 col-xl-6 col-lg-6">
+                    <div class="singel__input-field is-color-change mb-15">
+                      <label class="input__field-text">Date</label>
+                      {{ form.date }}
+                    </div>
+                  </div>
+                  <div class="col-xxl-6 col-xl-6 col-lg-6">
+                    <div class="singel__input-field is-color-change mb-15">
+                      <label class="input__field-text">Time</label>
+                      {{ form.time }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="event__right-box">
+                <div class="create__input-wrapper">
+                    <div class="row g-20">
+                      <div class="col-xxl-6 col-xl-6 col-lg-6 mb-15">
+                        <label class="input__field-text">Event Type</label>
+                        <div class="contact__select">
+                          {{ form.event_type }}
+                        </div>
+                      </div>
+                      <div class="col-xxl-6 col-xl-6 col-lg-6 mb-15">
+                        <div class="singel__input-field mb-15">
+                          <label class="input__field-text">Total Seats</label>
+                          {{ form.total_seats }}
+                        </div>
+                      </div>
+                      <div class="col-xxl-6 col-xl-6 col-lg-6 mb-50">
+                        <div class="singel__input-field">
+                          <label class="input__field-text">Ticket Price</label>
+                          {{ form.ticket_price }}
+                        </div>
+                      </div>
+                      <div class="col-xxl-6 col-xl-6 col-lg-6 mb-50">
+                        <label class="input__field-text">Event Status</label>
+                        <div class="contact__select">
+                          {{ form.event_status }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="singel__input-field mb-15">
+                      <label class="input__field-text">Select Speaker</label>
+                      <div class="contact__select">
+                        {{ form.speaker }}
+                      </div>
+                    </div>
+                    <div class="singel__input-field mb-50">
+                      <label class="input__field-text">Select Venue</label>
+                      <div class="contact__select">
+                        {{ form.venue }}
+                      </div>
+                    </div>
+                    <button class="input__btn w-100" type="submit">Update Event</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

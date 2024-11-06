@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Speaker List</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="breadcrum__button">
+          <a class="breadcrum__btn speaker__popup-active" href="{% url 'users:create-speaker' %}">Add Speaker<i class="fa-regular fa-plus"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="speaker__area pb-60">
+    <div class="schedule__content">
+      <div class="tab-content" id="myTabContent"> 
+        <div class="tab-pane fade show active" id="day-tab-1-pane" role="tabpanel" aria-labelledby="day-tab-1" tabindex="0">
+          <div class="row">
+            {% for speaker in speakers %}
+            <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6">
+              <div class="speaker__list-item mb-30">
+                <div class="speaker__list-thumb">
+                  <a href="profile.html">
+                    {% if speaker.image %}
+                    <img src="{{ speaker.image.url }}" alt="" />
+                    {% else %}
+                    <img src="{% static 'img/speaker/list/01.jpg' %}" alt="image not found" />
+                    {% endif %}
+                  </a>
+                </div>
+                <div class="speaker__list-content-inner">
+                  <div class="speaker__list-content">
+                    <h5 class="speaker__author-title"><a href="{{ speaker.get_absolute_url }}">{{ speaker.name }}</a></h5>
+                    <span class="speaker__author-info">{{ speaker.career }}</span>
+                  </div>
+                  <div class="speaker__list-social">
+                    <a href="tel:{{ speaker.phone }}" title="Phone: {{ speaker.phone }}"><i class="fa fa-phone"></i></a>
+                    <a href="mailto:{{ speaker.email }}" title="Mail: {{ speaker.email }}"><i class="fa fa-message"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            <div class="col-xxl-12">
+              <div class="pagination mt-30 d-flex justify-content-center">
+                <nav>
+                  <ul>
+                    <li>
+                      <a href="#">01</a>
+                    </li>
+                    <li>
+                      <span class="current">02</span>
+                    </li>
+                    <li>
+                      <a href="#">03</a>
+                    </li>
+                    <li class="next">
+                      <a href="#">
+                        <i class="fa-light fa-arrow-right-long"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

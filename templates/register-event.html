@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Register for Event</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xxl-12">
+      <div class="create__event-area">
+        <div class="body__card-wrapper">
+          <div class="card__header-top">
+            <div class="card__title-inner">
+              <h4 class="event__information-title">Event Information</h4>
+            </div>
+          </div>
+          <form action="{% url 'users:create-event' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="create__event-main pt-25">
+              <div class="event__left-box">
+                <div class="create__input-wrapper">
+                  <div class="singel__input-field mb-30">
+                    <label class="input__field-text">User Name</label>
+                    <input type="text" name="user" id="user" value="{{ request.user.name }}" disabled>
+                  </div>
+                  <div class="singel__input-field mb-30">
+                    <label class="input__field-text">User Email</label>
+                    <input type="text" name="user" id="user" value="{{ request.user.email }}" disabled>
+                  </div>
+                  <div class="singel__input-field mb-30">
+                    <label class="input__field-text">User Gender</label>
+                    <input type="text" name="user" id="user" value="{{ request.user.gender|title }}" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="event__right-box">
+                <div class="create__input-wrapper">
+                    <div class="row g-20">
+                      <div class="col-12 mb-30">
+                        <label class="input__field-text">Event</label>
+                        <div class="contact__select">
+                          {{ form.event }}
+                        </div>
+                      </div>
+                      <div class="col-12 mb-30">
+                        <div class="singel__input-field mb-30">
+                          <label class="input__field-text">Quantity</label>
+                          {{ form.quantity }}
+                        </div>
+                      </div>
+                    </div>
+                    <button class="input__btn w-100 mt-30" type="submit">Register for Event</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

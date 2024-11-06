@@ -1,0 +1,258 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" bd-theme="bd-theme-light" style="--clr-theme-1: #f87a58" lang="zxx">
+  <!-- Mirrored from codeskdhaka.com/html/expovent-prev/expovent/{% url 'users:home' %} by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 17 Mar 2024 11:53:39 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{% if title %}{{ title }}{% else %}University Alumni Website{% endif %}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-style-mode" content="1" />
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+    {% block core_css %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/metisMenu.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/backtotop.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/flaticon_expovent.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/fontawesome-pro.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/spacing.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}?{% now 'U' %}" />
+    {% endblock %} {% block page_css %} {% endblock %}
+  </head>
+
+  <body class="body-area">
+    <!-- Preloder start -->
+    <div id="preloader">
+      <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+      </div>
+    </div>
+    <!-- Preloder start -->
+
+    <!-- Offcanvas area start -->
+    <div class="fix">
+      <div class="offcanvas__info">
+        <div class="offcanvas__wrapper">
+          <div class="offcanvas__content">
+            <div class="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
+              <div class="offcanvas__logo">
+                <a href="{% url 'users:home' %}">
+                  <img src="{% static 'img/logo/logo-black.png' %}" alt="logo not found" />
+                </a>
+              </div>
+              <div class="offcanvas__close">
+                <button>
+                  <i class="fal fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="offcanvas__search mb-25">
+              <form action="{% url 'users:events' %}">
+                <input type="text" name="query" placeholder="What are you searching for?" />
+                <button type="submit"><i class="far fa-search"></i></button>
+              </form>
+            </div>
+            <div class="mobile-menu fix mb-40"></div>
+            <div class="offcanvas__contact mt-30 mb-20">
+              <h4>Contact Info</h4>
+              <ul>
+                <li class="d-flex align-items-center">
+                  <div class="offcanvas__contact-icon mr-15">
+                    <i class="fal fa-map-marker-alt"></i>
+                  </div>
+                  <div class="offcanvas__contact-text">
+                    <a target="_blank" href="https://www.google.com/maps/place/Dhaka/@23.7806207,90.3492859,12z/data=!3m1!4b1!4m5!3m4!1s0x3755b8b087026b81:0x8fa563bbdd5904c2!8m2!3d23.8104753!4d90.4119873">12/A, Mirnada City Tower, NYC</a>
+                  </div>
+                </li>
+                <li class="d-flex align-items-center">
+                  <div class="offcanvas__contact-icon mr-15">
+                    <i class="far fa-phone"></i>
+                  </div>
+                  <div class="offcanvas__contact-text">
+                    <a href="tel:+088889797697">+088889797697</a>
+                  </div>
+                </li>
+                <li class="d-flex align-items-center">
+                  <div class="offcanvas__contact-icon mr-15">
+                    <i class="fal fa-envelope"></i>
+                  </div>
+                  <div class="offcanvas__contact-text">
+                    <a href="tel:+012-345-6789"><span class="mailto:support@mail.com">support@mail.com</span></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="offcanvas__social">
+              <ul>
+                <li>
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-linkedin"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="offcanvas__overlay"></div>
+    <div class="offcanvas__overlay-white"></div>
+    <!-- Offcanvas area start -->
+
+    <!-- Dashboard area start -->
+    <div class="page__full-wrapper">
+      <!-- App sidebar area start -->
+      {% block sidebar %} {% include 'includes/sidebar.html' %}
+      <div class="app__offcanvas-overlay"></div>
+      {% endblock %}
+
+      <div class="page__body-wrapper">
+        {% block navbar %} {% include 'includes/navbar.html' %}
+        <div class="body__overlay"></div>        
+        {% endblock %} {% block content %} {% endblock %}
+      </div>
+    </div>
+
+    <div class="notifications"></div>
+
+    {% block progress_btn %}
+    <div class="progress-wrap d-none">
+      <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+
+    {% endblock %} {% block core_js %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/apexcharts.min.js' %}"></script>
+    <script src="{% static 'js/metisMenu.min.js' %}"></script>
+    <script src="{% static 'js/meanmenu.min.js' %}"></script>
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <script src="{% static 'js/magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/backtotop.js' %}"></script>
+    <script src="{% static 'js/counterup.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/countdown.js' %}"></script>
+    <script src="{% static 'js/smooth-scrollbar.js' %}"></script>
+    <script src="{% static 'js/ajax-form.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endblock %}
+
+    <script>
+      function showNotification(text, type) {
+        // Close Notification Button
+        const closeSVG = `<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8.82658 7.50016L14.7251 1.60135C15.0916 1.23517 15.0916 0.641039 14.7251 0.274865C14.3587 -0.0916217 13.7652 -0.0916217 13.3987 0.274865L7.50016 6.17367L1.60128 0.274865C1.23481 -0.0916217 0.641325 -0.0916217 0.274854 0.274865C-0.0916179 0.641039 -0.0916179 1.23517 0.274854 1.60135L6.17373 7.50016L0.274854 13.399C-0.0916179 13.7651 -0.0916179 14.3593 0.274854 14.7254C0.458089 14.9084 0.698234 15 0.938067 15C1.1779 15 1.41804 14.9084 1.60128 14.7251L7.50016 8.82633L13.3987 14.7251C13.582 14.9084 13.8221 15 14.0619 15C14.3018 15 14.5419 14.9084 14.7251 14.7251C15.0916 14.359 15.0916 13.7648 14.7251 13.3987L8.82658 7.50016Z" fill="#AEB0D7"/>
+    </svg>
+    `;
+
+        // Wheather the icon is check or cross
+        const checkIcon =
+          type != "error"
+            ? `
+        <svg class="icon" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M24.6094 12.5C24.6094 19.1878 19.1878 24.6094 12.5 24.6094C5.81216 24.6094 0.390625 19.1878 0.390625 12.5C0.390625 5.81216 5.81216 0.390625 12.5 0.390625C19.1878 0.390625 24.6094 5.81216 24.6094 12.5ZM11.0993 18.9118L20.0837 9.92744C20.3888 9.62236 20.3888 9.12769 20.0837 8.82261L18.9789 7.71777C18.6738 7.41265 18.1791 7.41265 17.874 7.71777L10.5469 15.0448L7.12603 11.624C6.82095 11.3189 6.32627 11.3189 6.02114 11.624L4.91631 12.7288C4.61123 13.0339 4.61123 13.5286 4.91631 13.8336L9.99443 18.9118C10.2996 19.2169 10.7942 19.2169 11.0993 18.9118Z" fill="#22C55E"/>
+    </svg>
+      `
+            : `
+        <svg class="icon" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.5 0.390625C5.81055 0.390625 0.390625 5.81055 0.390625 12.5C0.390625 19.1895 5.81055 24.6094 12.5 24.6094C19.1895 24.6094 24.6094 19.1895 24.6094 12.5C24.6094 5.81055 19.1895 0.390625 12.5 0.390625ZM18.4375 15.6787C18.667 15.9082 18.667 16.2793 18.4375 16.5088L16.5039 18.4375C16.2744 18.667 15.9033 18.667 15.6738 18.4375L12.5 15.2344L9.32129 18.4375C9.0918 18.667 8.7207 18.667 8.49121 18.4375L6.5625 16.5039C6.33301 16.2744 6.33301 15.9033 6.5625 15.6738L9.76562 12.5L6.5625 9.32129C6.33301 9.0918 6.33301 8.7207 6.5625 8.49121L8.49609 6.55762C8.72559 6.32812 9.09668 6.32812 9.32617 6.55762L12.5 9.76562L15.6787 6.5625C15.9082 6.33301 16.2793 6.33301 16.5088 6.5625L18.4424 8.49609C18.6719 8.72559 18.6719 9.09668 18.4424 9.32617L15.2344 12.5L18.4375 15.6787Z" fill="#EF4444"/>
+    </svg>
+      `;
+
+        // Notification markup
+        const markup = `
+        <div class="notification ${type}">
+          <div class="content">
+            <div class="img">${checkIcon}</div>
+            <div class="text">${text}</div>
+          </div>
+          <div class="close">${closeSVG}</div>
+          <div class="progress-bar ${type}"></div>
+        </div>
+      `;
+
+        // Add notification to the page
+        const notificationContainer = document.querySelector(".notifications");
+        notificationContainer.insertAdjacentHTML("afterbegin", markup);
+
+        // Remove notification when progress bar end animation
+        notificationContainer.querySelectorAll(".progress-bar").forEach((item) => {
+          item.addEventListener("animationend", function (e) {
+            if (e.animationName == "scale-width") {
+              const notification = this.closest(".notification");
+
+              // Fadeout notification
+              fadeoutNotification(notification);
+
+              // Remove notification
+              notification.ontransitionend = function (e) {
+                if (e.propertyName == "opacity") {
+                  removeNotification(this);
+                }
+              };
+            }
+          });
+        });
+
+        // Close the notification
+        notificationContainer.addEventListener("pointerdown", (e) => {
+          const target = e.target;
+          if (target.classList.contains("close")) {
+            const notification = target.closest(".notification");
+            // Fadeout notification
+            fadeoutNotification(notification);
+
+            // Remove notification
+            notification.ontransitionend = function (e) {
+              if (e.propertyName == "opacity") {
+                removeNotification(this);
+              }
+            };
+          }
+        });
+      }
+
+      function fadeoutNotification(notification) {
+        notification.style.opacity = 0;
+      }
+
+      function removeNotification(notification) {
+        notification.remove();
+      }
+    </script>
+
+    {% if messages %} {% for message in messages %}
+    <script>
+      showNotification('{{ message|safe }}', '{{ message.tags }}')
+    </script>
+    {% endfor %} {% endif %}
+
+    {% block page_js %} {% endblock %}
+  </body>
+
+  <!-- Mirrored from codeskdhaka.com/html/expovent-prev/expovent/{% url 'users:home' %} by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 17 Mar 2024 11:54:13 GMT -->
+</html>

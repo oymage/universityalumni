@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Event Calendar</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-xxl-8 col-xl-8">
+      <div class="calender__area mb-20">
+        <div class="body__card-wrapper">
+          <div class="card__header-top bb-0 pb-0">
+            <div class="card__title-inner">
+              <h4 class="event__information-title">Event calender</h4>
+            </div>
+            <div class="calendar__wrapper">
+              <div class="calendar__header p-relative">
+                <div class="calendar__month">
+                  <p class="current-date"></p>
+                  <p class="current-date"></p>
+                </div>
+                <div class="calendar__navigation">
+                  <span id="prev" class="calendar__button prev"><i class="fa-regular fa-arrow-left"></i></span>
+                  <span id="next" class="calendar__button next"><i class="fa-regular fa-arrow-right"></i></span>
+                </div>
+              </div>
+              <div class="calendar">
+                <ul class="weeks">
+                  <li>Sun</li>
+                  <li>Mon</li>
+                  <li>Tue</li>
+                  <li>Wed</li>
+                  <li>Thu</li>
+                  <li>Fri</li>
+                  <li>Sat</li>
+                </ul>
+                <ul class="days"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

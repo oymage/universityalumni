@@ -1,0 +1,156 @@
+{% load static %}
+
+<div class="expovent__sidebar" data-background="{% static 'img/bg/dropdown-bg.png' %}">
+    <div class="logo-details">
+      <span>
+        <a href="{% url 'users:home' %}">
+          <img class="logo__white" src="{% static 'img/logo/logo.png' %}" alt="logo not found" />
+        </a>
+      </span>
+      <span>
+        <a href="{% url 'users:home' %}">
+          <img class="log__smnall" src="{% static 'img/logo/logo.png' %}" alt="logo not found" />
+        </a>
+      </span>
+    </div>
+    <div class="sidebar__inner simple-bar">
+      <div class="dlabnav">
+        <ul class="metismenu" id="menu">
+          {% if request.user.is_superuser %}
+          <li class="{% if page == 'home' %}mm-active{% endif %}">
+            <a href="{% url 'users:home' %}" aria-expanded="false">
+              <i class="flaticon-home-1"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="{% if page == 'schedules' %}mm-active{% endif %}">
+            <a href="{% url 'users:schedules' %}" aria-expanded="false">
+              <i class="flaticon-upcoming"></i>
+              <span class="nav-text">Schedule List</span>
+            </a>
+          </li>
+          <li class="{% if page == 'calendar' %}mm-active{% endif %}">
+            <a href="{% url 'users:calendar' %}" aria-expanded="false">
+              <i class="flaticon-calendar"></i>
+              <span class="nav-text">My Calendar</span>
+            </a>
+          </li>
+          <li class="{% if page == 'events' %}mm-active{% endif %}">
+            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <i class="flaticon-event"></i>
+              <span class="nav-text">Events</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="{% url 'users:create-event' %}">Create Event</a></li>
+              <li><a href="{% url 'users:events' %}"> Event List</a></li>
+            </ul>
+          </li>
+          <li class="{% if page == 'venues' %}mm-active{% endif %}">
+            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <i class="flaticon-management"></i>
+              <span class="nav-text">Venues</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="{% url 'users:create-venue' %}">Create Venue</a></li>
+              <li><a href="{% url 'users:venues' %}"> Venues List</a></li>
+            </ul>
+          </li>
+          <li class="{% if page == 'forums' %}mm-active{% endif %}">
+            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <i class="flaticon-notification"></i>
+              <span class="nav-text">Forums</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="{% url 'users:create-forum' %}">Create Forum</a></li>
+              <li><a href="{% url 'users:forums' %}"> Forum List</a></li>
+            </ul>
+          </li>
+          <li class="{% if page == 'speakers' %}mm-active{% endif %}">
+            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <i class="flaticon-speaker"></i>
+              <span class="nav-text">Speakers</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="{% url 'users:create-speaker' %}">Create Speaker</a></li>
+              <li><a href="{% url 'users:speakers' %}"> Speakers List</a></li>
+            </ul>
+          </li>
+          <li class="{% if page == 'speakers' %}mm-active{% endif %}">
+            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <i class="flaticon-speaker"></i>
+              <span class="nav-text">Jobs</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="{% url 'users:create-job' %}">Create Job</a></li>
+              <li><a href="{% url 'users:jobs' %}"> Jobs List</a></li>
+            </ul>
+          </li>
+          <li class="{% if page == 'donors' %}mm-active{% endif %}">
+            <a href="{% url 'users:calendar' %}" aria-expanded="false">
+              <i class="flaticon-group"></i>
+              <span class="nav-text">Donors</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'users:logout' %}" aria-expanded="false">
+              <i class="flaticon-log-out-3"></i>
+              <span class="nav-text">Log Out</span>
+            </a>
+          </li>
+          {% else %}
+          <li class="{% if page == 'home' %}mm-active{% endif %}">
+            <a href="{% url 'users:home' %}" aria-expanded="false">
+              <i class="flaticon-home-1"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="{% if page == 'schedules' %}mm-active{% endif %}">
+            <a href="{% url 'users:schedules' %}" aria-expanded="false">
+              <i class="flaticon-calendar-1"></i>
+              <span class="nav-text">Schedule List</span>
+            </a>
+          </li>
+          <li class="{% if page == 'events' %}mm-active{% endif %}">
+            <a href="{% url 'users:events' %}" aria-expanded="false">
+              <i class="flaticon-reminder"></i>
+              <span class="nav-text">Events</span>
+            </a>
+          </li>
+          <li class="{% if page == 'calendar' %}mm-active{% endif %}">
+            <a href="{% url 'users:calendar' %}" aria-expanded="false">
+              <i class="flaticon-calendar"></i>
+              <span class="nav-text">My Calendar</span>
+            </a>
+          </li>
+          <li class="{% if page == 'venues' %}mm-active{% endif %}">
+            <a href="{% url 'users:venues' %}" aria-expanded="false">
+              <i class="flaticon-reminder"></i>
+              <span class="nav-text">Venues</span>
+            </a>
+          </li>
+          <li class="{% if page == 'speakers' %}mm-active{% endif %}">
+            <a href="{% url 'users:speakers' %}" aria-expanded="false">
+              <i class="flaticon-user"></i>
+              <span class="nav-text">Speakers</span>
+            </a>
+          </li>
+          <li class="{% if page == 'jobs' %}mm-active{% endif %}">
+            <a href="{% url 'users:jobs' %}" aria-expanded="false">
+              <i class="flaticon-job"></i>
+              <span class="nav-text">Jobs</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'users:logout' %}" aria-expanded="false">
+              <i class="flaticon-log-out-3"></i>
+              <span class="nav-text">Log Out</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+        <div class="sidebar__copyright">
+          <p>&copy; 2024 Alumni Forum&trade;</p>
+        </div>
+      </div>
+    </div>
+  </div>

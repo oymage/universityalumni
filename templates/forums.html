@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Discussion Forums</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="event__venue-area">
+    <div class="row">
+      {% for forum in forums %}
+      <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
+        <div class="event__venue-card mb-20">
+          <div class="event__venue-inner">
+            <div class="event__venue-content">
+              <div class="event__venue-meta">
+                <div class="news__meta-status">
+                  <span><i class="flaticon-calendar-1"></i></span>
+                  <span>{{ forum.get_booked_date }}</span>
+                </div>
+                <div class="news__meta-status">
+                  <span><i class="flaticon-clock"></i></span>
+                  <span>{{ forum.get_booked_time}}</span>
+                </div>
+              </div>
+              <h4 class="event__venue-title">{{ forum.name }}</h4>
+              <p>{{ forum.location }}</p>
+            </div>
+            <div class="event__venue-thumb">
+              <a href="{{ forum.get_absolute_url }}">
+                {% if forum.image %}
+                <img src="{{ forum.image.url }}" />
+                {% else %}
+                <img src="{% static 'img/venue/venue-01.jpg' %}" alt="image not found" />
+                {% endif %}
+              </a>
+              <div class="event__tag-post">
+                <div class="event__tag-item">
+                  <span><a href="{{ forum.get_absolute_url }}">Since {{ forum.created_at }}</a></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12"><p class="text-center">No Venues Found!</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

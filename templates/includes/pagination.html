@@ -1,0 +1,45 @@
+{% load static main_extras %}
+
+
+{% if results.has_other_pages %}
+<div class="basic__pagination d-flex align-items-center justify-content-end">
+    <nav>
+      <ul>
+        {% if results.has_previous %}
+        <li>
+          <a href="?{% query_transform page=results.previous_page_number %}">
+            <i class="fa-regular fa-arrow-left-long"></i>
+          </a>
+        </li>
+        {% endif %}
+
+        {% for page in page_numbers %}
+        {% if page == results.paginator.ELLIPSIS %}
+            <li>
+                <span>...</span>
+            </li>
+        {% else %}
+            {% if results.number == page %}
+            <li>
+                <span class="current">{{ page }}</span>
+              </li>
+            {% else %}
+            <li>
+              <a href="?{% query_transform page=page %}">{{ page }}</a>
+            </li>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% if results.has_next %}
+        <li>
+          <a href="?{% query_transform page=results.next_page_number %}">
+            <i class="fa-regular fa-arrow-right-long"></i>
+          </a>
+        </li>
+        {% endif %}
+
+      </ul>
+    </nav>
+  </div>
+{% endif %}

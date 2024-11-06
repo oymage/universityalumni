@@ -1,0 +1,207 @@
+{% extends 'base.html' %} {% load static humanize %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="breadcrumb__wrapper mb-35">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>event details</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="event__details-area">
+    <div class="row">
+      <div class="col-xxl-7 col-xl-6">
+        <div class="event__details-left">
+          <div class="body__card-wrapper mb-20">
+            <div class="card__header-top">
+              <div class="card__title-inner">
+                <h4 class="event__information-title">{{ event.title }}</h4>
+              </div>
+            </div>
+            <div class="review__main-wrapper pt-25">
+              <div class="review__tab">
+                <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">about</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">review</button>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                    <div class="about__event-thumb w-img mt-40">
+                      {% if event.image %}
+                      <img src="{{ event.image.url }}" alt="image not found" />
+                      {% else %}
+                      <img src="{% static 'img/event/event-details-2.jpg' %}" alt="image not found" />
+                      {% endif %}
+                    </div>
+                    <div class="about__content mt-30">
+                      <h4>About This Event</h4>
+                      <p>{{ event.details|safe }}</p>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    {% for comment in event.comments.all %}
+                    <div class="review__item mt-35">
+                      <div class="review__item-inner">
+                        <div class="review__item-thumb">
+                          <img src="{% static 'img/meta/chatbox/02.png' %}" alt="image not found" />
+                        </div>
+                        <div class="review__item-content">
+                          <h4>{{ comment.user.name }}</h4>
+                          <ul>
+                            <li>
+                              <span>{{ comment.rating }}</span>
+                              {% if comment.rating >= 1 %}
+                                  <i class="fa-solid fa-star"></i>
+                              {% else %}
+                                  <i class="far fa-star"></i>
+                              {% endif %}
+
+                              {% if comment.rating >= 2 %}
+                                  <i class="fa-solid fa-star"></i>
+                              {% else %}
+                                  <i class="far fa-star"></i>
+                              {% endif %}
+
+                              {% if comment.rating >= 3 %}
+                                  <i class="fa-solid fa-star"></i>
+                              {% else %}
+                                  <i class="far fa-star"></i>
+                              {% endif %}
+
+                              {% if comment.rating >= 4 %}
+                                  <i class="fa-solid fa-star"></i>
+                              {% else %}
+                                  <i class="far fa-star"></i>
+                              {% endif %}
+
+                              {% if comment.rating >= 5 %}
+                                  <i class="fa-solid fa-star"></i>
+                              {% else %}
+                                  <i class="far fa-star"></i>
+                              {% endif %}
+                            </li>
+                            <li>{{ comment.created_at|timesince }} ago</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <p>{{ comment.details }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="mt-35 text-center">This event currently has no reviews and ratings... Be the first one.</p>
+                    {% endfor %}
+                    <hr style="margin-top: 2em; margin-bottom: 1.5em;">
+                    <form action="{% url 'users:post-comment' event.slug %}" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                        <div class="event__left-boxs">
+                          <div class="create__input-wrapper">
+                            <div class="singel__input-field mb-15">
+                              <label class="input__field-text">Your Rating (/5)</label>
+                              {{ form.rating }}
+                              <small class="txt-danger">{{ form.rating.errors }}</small> <!-- Error checking for Venue Name -->
+                            </div>
+                            <div class="event__input mb-15">
+                              <label class="input__field-text">Your Sincere Review</label>
+                              {{ form.details }}
+                              <small class="txt-danger">{{ form.details.errors }}</small> <!-- Error checking for Venue Details -->
+                            </div>
+                          </div>
+                          <button class="input__btn w-100" type="submit">Submit The Review</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-5 col-xl-6">
+        <div class="event__details-right">
+          <div class="body__card-wrapper mb-20">
+            <div class="review__meta mb-25">
+              <ul>
+                <li>
+                  <span>5.0</span>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </li>
+                <li>Views ({{ event.total_views }})</li>
+                <li>{{ event.total_tickets }} Tickets</li>
+              </ul>
+            </div>
+            <div class="review__author-meta mb-15">
+              <div class="review__author-name">
+                <h4 class="mb-40">Speaker: {{ event.speaker.name }}</h4>
+                <blockquote>{{ event.speaker.bio }}</blockquote>
+              </div>
+            </div>
+            <div class="ticket__purchase-wrapper mt-30">
+              <h4 class="ticket__purchase-title">Purchase Ticket</h4>
+              <form class="ticket__price-inner" action="{{ event.get_absolute_url }}" method="POST">
+                {% csrf_token %}
+                <div class="ticket__price-item">
+                  <label class="input__field-text">Total Person</label>
+                  <div class="singel__input-field">
+                    <input type="number" name="quantity" value="1" max="{{ event.total_seats }}" step="1" style="width: 100px;">
+                  </div>
+                </div>
+                <div class="ticket__price-item">
+                  <label>Ticket Price :</label>
+                  <strong> ${{ event.ticket_price }}</strong>
+                </div>
+                <div class="ticket__price-item">
+                  <label>Buy now :</label>
+                  <button class="unfield__input-btn" type="submit">Buy ticket</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="body__card-wrapper mb-20">
+            <div class="event__meta-time">
+              <ul>
+                <li>
+                  <span> Date : </span>
+                  {{ event.date|date:"d M Y" }}
+                </li>
+                <li>
+                  <span>Time :</span>
+                  {{ event.time }}
+                </li>
+                <li class="d-none">
+                  <span>Reg. Deadline : </span>
+                  {{ event.registration_deadline }}
+                </li>
+                <li>
+                  <span>Venue : </span>
+                  {{ event.venue.name }} <br>
+                  <div class="venue-event-image">
+                    <img src="{{ event.venue.image.url }}" alt="venue image">
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

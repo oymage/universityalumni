@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Create Job</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xxl-12">
+      <div class="create__event-area">
+        <div class="body__card-wrapper">
+          <div class="card__header-top">
+            <div class="card__title-inner">
+              <h4 class="event__information-title">Job Information</h4>
+            </div>
+          </div>
+          <form action="{% url 'users:create-job' %}" method="post">
+            {% csrf_token %}
+            <div class="create__event-main pt-25">
+              <div class="event__left-box">
+                <div class="create__input-wrapper">
+                  <div class="singel__input-field mb-15">
+                    <label class="input__field-text">Job Title</label>
+                    {{ form.title }}
+                    <small class="txt-danger">{{ form.name.errors }}</small> <!-- Error checking for Job Name -->
+                  </div>
+                  <div class="singel__input-field mb-15">
+                    <label class="input__field-text">Job Location</label>
+                    {{ form.location }}
+                    <small class="txt-danger">{{ form.location.errors }}</small> <!-- Error checking for Job Location -->
+                  </div>
+                  <div class="event__input mb-15">
+                    <label class="input__field-text">Job Details</label>
+                    {{ form.details }}
+                    <small class="txt-danger">{{ form.details.errors }}</small> <!-- Error checking for Job Details -->
+                  </div>
+                </div>
+              </div>
+              <div class="event__right-box">
+                <div class="create__input-wrapper">
+                  <div class="singel__input-field mb-15">
+                    <label class="input__field-text">Job Deadline</label>
+                    {{ form.deadline }}
+                    <small class="txt-danger">{{ form.capacity.errors }}</small> <!-- Error checking for Job Capacity -->
+                  </div>
+                  <div class="event__update-wrapper">
+                    <div class="popup__update">
+                      <label>Upload Attachment</label>
+                      {{ form.attachment }}
+                    </div>
+                  </div>
+                  <button class="input__btn w-100" type="submit">Add Job</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Create Speaker</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xxl-12">
+      <div class="create__event-area">
+        <div class="body__card-wrapper">
+          <div class="card__header-top">
+            <div class="card__title-inner">
+              <h4 class="event__information-title">Speaker Information</h4>
+            </div>
+          </div>
+          <form action="{% url 'users:create-speaker' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="create__event-main pt-25">
+              <div class="event__left-box">
+                <div class="create__input-wrapper">
+                  <div class="singel__input-field mb-40">
+                    <label class="input__field-text">Name</label>
+                    {{ form.name }}
+                    <small class="txt-danger">{{ form.name.errors }}</small> 
+                  </div>
+                  <div class="singel__input-field mb-40">
+                    <label class="input__field-text">Career</label>
+                    {{ form.career }}
+                    <small class="txt-danger">{{ form.career.errors }}</small> 
+                  </div>
+                  <div class="singel__input-field mb-40">
+                    <label class="input__field-text">Email</label>
+                    {{ form.email }}
+                    <small class="txt-danger">{{ form.email.errors }}</small> 
+                  </div>
+                  <div class="singel__input-field mb-40">
+                    <label class="input__field-text">Phone</label>
+                    {{ form.phone }}
+                    <small class="txt-danger">{{ form.phone.errors }}</small> 
+                  </div>
+                </div>
+              </div>
+              <div class="event__right-box">
+                <div class="create__input-wrapper">
+                  <div class="event__input mb-15">
+                    <label class="input__field-text">Bio</label>
+                    {{ form.bio }}
+                    <small class="txt-danger">{{ form.bio.errors }}</small> <!-- Error checking for Speaker Details -->
+                  </div>
+                  <div class="singel__input-field mb-15">
+                    <label class="input__field-text">Gender</label>
+                    <div class="contact__select">
+                      {{ form.gender }}
+                    </div>
+                  </div>
+                  <div class="event__update-wrapper">
+                    <div class="popup__update">
+                      <label>Upload Image (200x200px)</label>
+                      {{ form.image }}
+                    </div>
+                  </div>
+                  <button class="input__btn w-100" type="submit">Add Speaker</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

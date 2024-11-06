@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Create Venue</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xxl-12">
+      <div class="create__event-area">
+        <div class="body__card-wrapper">
+          <div class="card__header-top">
+            <div class="card__title-inner">
+              <h4 class="event__information-title">Venue Information</h4>
+            </div>
+          </div>
+          <form action="{% url 'users:create-venue' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="create__event-main pt-25">
+              <div class="event__left-box">
+                <div class="create__input-wrapper">
+                  <div class="singel__input-field mb-15">
+                    <label class="input__field-text">Venue Name</label>
+                    {{ form.name }}
+                    <small class="txt-danger">{{ form.name.errors }}</small> <!-- Error checking for Venue Name -->
+                  </div>
+                  <div class="singel__input-field mb-15">
+                    <label class="input__field-text">Venue Location</label>
+                    {{ form.location }}
+                    <small class="txt-danger">{{ form.location.errors }}</small> <!-- Error checking for Venue Location -->
+                  </div>
+                  <div class="event__input mb-15">
+                    <label class="input__field-text">Venue Details</label>
+                    {{ form.details }}
+                    <small class="txt-danger">{{ form.details.errors }}</small> <!-- Error checking for Venue Details -->
+                  </div>
+                </div>
+              </div>
+              <div class="event__right-box">
+                <div class="create__input-wrapper">
+                  <div class="singel__input-field mb-15">
+                    <label class="input__field-text">Venue Capacity</label>
+                    {{ form.capacity }}
+                    <small class="txt-danger">{{ form.capacity.errors }}</small> <!-- Error checking for Venue Capacity -->
+                  </div>
+                  <div class="event__update-wrapper">
+                    <div class="popup__update">
+                      <label>Upload Image (200x200px)</label>
+                      {{ form.image }}
+                    </div>
+                  </div>
+                  <button class="input__btn w-100" type="submit">Add Venue</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

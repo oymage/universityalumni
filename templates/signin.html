@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_css %}
+<style>
+   .page__body-wrapper {
+      width: 100%;
+   }
+   
+   .app__header__area,
+   .progress-wrap.active-progress,
+   .expovent__sidebar {
+      display: none !important;
+   }
+</style>
+{% endblock %}
+
+{% block content %}
+
+      <!-- signin area start -->
+      <section class="signin__area">
+         <div class="sign__main-wrapper">
+            <div class="sign__left">
+               <div class="sign__header">
+                  <div class="sign__logo">
+                     <a href="{% url 'users:home' %}">
+                        <img class="logo-black" src="{% static 'img/logo/logo-black.png' %}" alt="image not found">
+                        <img class="logo-white" src="{% static 'img/logo/logo.png' %}" alt="image not found">
+                     </a>
+                  </div>
+                  <div class="sign__link">
+                     <a class="sign__link-active" href="{% url 'users:signin' %}">Sign in</a>
+                     <a class="sign__link-text" href="{% url 'users:signup' %}">Sign Up</a>
+                  </div>
+               </div>
+               <div class="sign__center-wrapper text-center mt-90">
+                  <div class="sign__title-wrapper mb-40">
+                     <h3 class="sign__title">Welcome To EventMS</h3>
+                     <p>The faster you fill up. the faster you get a ticket</p>
+                  </div>
+                  <div class="sign__input-form text-center">
+                     <form action="{% url 'users:signin' %}" method="post">
+                        {% csrf_token %}
+                        <div class="sign__input">
+                           {{ form.email }}
+                           {% for error in form.email.errors %}
+                              <p class="error-message">{{ error }}</p>
+                           {% endfor %}
+                           <span><i class="flaticon-user-2"></i></span>
+                        </div>
+                        <div class="sign__input">
+                           {{ form.password }}
+                           {% for error in form.password.errors %}
+                              <p class="error-message">{{ error }}</p>
+                           {% endfor %}
+                           <span><i class="flaticon-password"></i></span>
+                        </div>
+                        <div class="sign__action">
+                           <div class="sign__check">
+                              <input class="e-check-input" type="checkbox" id="register">
+                              <label class="sign__check-text" for="register"><span>Remember Me</span></label>
+                           </div>
+                           <div class="sign__forget">
+                              <span><a href="{% url 'password_reset' %}">Forgot Password?</a></span>
+                           </div>
+                        </div>
+                        <div class="sing__button mb-20">
+                           <button class="input__btn w-100 mb-20" type="submit">Sign in</button>
+                           
+                        </div>
+                     </form>
+                     <div class="if__account mt-85">
+                        <p>Don’t Have An Account?<a href="{% url 'users:signup' %}"> Sign up</a></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="sign__right">
+               <div class="sign__input-thumb" data-background="{% static 'img/sign/signin.jpg' %}">
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- signin area end -->
+   
+   {% endblock %}

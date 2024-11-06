@@ -1,0 +1,110 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="breadcrumb__area">
+    <div class="breadcrumb__wrapper mb-35">
+      <div class="breadcrumb__main">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Job Listing</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="breadcrum__button">
+          {% if request.user.is_superuser %}
+          <a class="breadcrum__btn event__popup-active" href="{% url 'users:create-event' %}">Create Job<i class="fa-regular fa-plus"></i></a>
+          {% else %}
+          <a class="breadcrum__btn event__popup-active" href="{% url 'users:register-event' %}">Apply Job<i class="fa-regular fa-plus"></i></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="event__list-area pb-20">
+    <div class="event__content-inner">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="day-tab-1-pane" role="tabpanel" aria-labelledby="day-tab-1" tabindex="0">
+          <div class="body__card-wrapper">
+            <h4 class="event__information-title mb-25">Upcoming Event Information</h4>
+            <div class="attendant__wrapper mb-35">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID No</th>
+                    <th>Job Name</th>
+                    <th>Company</th>
+                    <th>Deadline</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for job in jobs %}
+                  <tr>
+                    <td>
+                      <div class="attendant__serial">
+                        <span>#{{ job.id }}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="attendant__seminer">
+                        <span><a href="{{ event.get_absolute_url }}">{{ job.title }}</a></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="attendant__speakers">
+                        <div class="attendant__speakers-thumb">
+                          {{ job.company }}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="attendant__date">
+                        <span>{{ job.deadline|date:"d M Y" }}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="attendant__location">
+                        <span>{{ job.location }}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="attendant__action">
+                        <div class="card__header-dropdown">
+                          <div class="dropdown">
+                            <button>
+                              <svg class="attendant__dot" width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 0.75C2.69036 0.75 3.25 1.30964 3.25 2C3.25 2.69036 2.69036 3.25 2 3.25C1.30964 3.25 0.75 2.69036 0.75 2C0.75 1.30964 1.30964 0.75 2 0.75Z" fill="white"></path>
+                                <path d="M7 0.75C7.69036 0.75 8.25 1.30964 8.25 2C8.25 2.69036 7.69036 3.25 7 3.25C6.30964 3.25 5.75 2.69036 5.75 2C5.75 1.30964 6.30964 0.75 7 0.75Z" fill="white"></path>
+                                <path d="M13.25 2C13.25 1.30964 12.6904 0.75 12 0.75C11.3096 0.75 10.75 1.30964 10.75 2C10.75 2.69036 11.3096 3.25 12 3.25C12.6904 3.25 13.25 2.69036 13.25 2Z" fill="white"></path>
+                              </svg>
+                            </button>
+                            <div class="dropdown-list">
+                              <a class="dropdown__item" href="{{ job.get_update_url }}">Apply</a>
+                              <a class="dropdown__item" href="{{ job.get_delete_url }}">Bookmark</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% include 'includes/pagination.html' with results=jobs %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
