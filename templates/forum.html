@@ -1,0 +1,111 @@
+{% extends 'base.html' %} {% load static humanize %} {% block content %}
+<div class="app__slide-wrapper">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="breadcrumb__wrapper mb-35">
+        <div class="breadcrumb__inner">
+          <div class="breadcrumb__icon">
+            <i class="flaticon-home"></i>
+          </div>
+          <div class="breadcrumb__menu">
+            <nav>
+              <ul>
+                <li>
+                  <span><a href="{% url 'users:home' %}">Home</a></span>
+                </li>
+                <li class="active"><span>Forum details</span></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="event__details-area">
+    <div class="row">
+      <div class="col-xxl-7 col-xl-6">
+        <div class="event__details-left">
+          <div class="body__card-wrapper mb-20">
+            <div class="card__header-top">
+              <div class="card__title-inner">
+                <h4 class="event__information-title">What are people saying in {{ forum.name }}?</h4>
+              </div>
+            </div>
+            <div class="review__main-wrapper pt-25">
+              <div class="review__tab">
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    {% for comment in forum.comments.all %}
+                    <div class="review__item mt-35">
+                      <div class="review__item-inner">
+                        <div class="review__item-thumb">
+                          <img src="{% static 'img/meta/chatbox/02.png' %}" alt="image not found" />
+                        </div>
+                        <div class="review__item-content">
+                          <h4>{{ comment.user.name }}</h4>
+                          <ul>
+                            <li>{{ comment.created_at|timesince }} ago</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <p>{{ comment.details }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="mt-35 text-center">This forum currently has no reviews and ratings... Be the first one.</p>
+                    {% endfor %}
+                    <hr style="margin-top: 2em; margin-bottom: 1.5em;">
+                    <form action="{% url 'users:forum-comment' forum.slug %}" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                        <div class="event__left-boxs">
+                          <div class="create__input-wrapper">
+                            <div class="event__input mb-15">
+                              <label class="input__field-text">Say something...</label>
+                              {{ form.details }}
+                              <small class="txt-danger">{{ form.details.errors }}</small> <!-- Error checking for Venue Details -->
+                            </div>
+                          </div>
+                          <button class="input__btn w-100" type="submit">Submit The Comment</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-5 col-xl-6">
+        <div class="event__details-right">
+          <div class="body__card-wrapper mb-20">
+            <h4>{{ forum.name }}</h4>
+            <div class="about__event-thumb w-img mt-40">
+              {% if forum.image %}
+              <img src="{{ forum.image.url }}" alt="image not found" />
+              {% else %}
+              <img src="{% static 'img/event/event-details-2.jpg' %}" alt="image not found" />
+              {% endif %}
+            </div>
+            <div class="about__content mt-30">
+              <p>{{ forum.details|safe }}</p>
+            </div>
+          </div>
+          <div class="body__card-wrapper mb-20">
+            <div class="event__meta-time">
+              <ul>
+                <li>
+                  <span> Created : </span>
+                  {{ forum.created_at|date:"d M Y" }}
+                </li>
+                <li>
+                  <span>Total Views :</span>
+                  {{ forum.total_views }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -31,6 +31,7 @@ urlpatterns = [
     
     # forums
     path('forums/', views.forums, name='forums'),
+    path('forums/comment/<slug:slug>/', views.forum_comment, name='forum-comment'),
     path('forums/create', views.create_forum, name='create-forum'),
     path('forums/update/<slug:slug>/', views.update_forum, name='update-forum'),
     path('forums/delete/<slug:slug>/', views.delete_forum, name='delete-forum'),

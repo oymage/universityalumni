@@ -1,5 +1,5 @@
 from django import forms
-from apps.users.models import Account, Event, Speaker, Venue, Comment, Ticket, Job, Forum
+from apps.users.models import Account, Event, Speaker, Venue, Comment, Ticket, Job, Forum, ForumComment
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 
@@ -122,6 +122,11 @@ class CommentForm(forms.ModelForm):
                 'max': 5,
             }),
         }
+
+class ForumCommentForm(forms.ModelForm):
+    class Meta:
+        model  =  ForumComment
+        fields =  ( 'details',)
 
 class SpeakerForm(forms.ModelForm):
     class Meta:

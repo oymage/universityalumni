@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.users.forms import LoginForm, RegistrationForm, EventForm, VenueForm, SpeakerForm, CommentForm, TicketForm, JobForm, ForumForm
+from apps.users.forms import LoginForm, RegistrationForm, EventForm, VenueForm, SpeakerForm, CommentForm, TicketForm, JobForm, ForumForm, ForumCommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -82,6 +82,8 @@ def home(request):
     total_speakers = str(Speaker.objects.count()).zfill(3)
     total_events = str(Event.objects.count()).zfill(3)
     total_tickets = str(Ticket.objects.count()).zfill(3)
+    total_forums = str(Forum.objects.count()).zfill(3)
+    total_jobs = str(Job.objects.count()).zfill(3)
     total_male = all_users.filter(gender='male').count()
     total_female = all_users.filter(gender='female').count()
     total_other = all_users.filter(gender='other').count()
@@ -94,6 +96,8 @@ def home(request):
         'total_male': total_male,
         'total_female': total_female,
         'total_others': total_other,
+        'total_forums': total_forums,
+        'total_jobs': total_jobs,
         'upcoming_events': upcoming_events,
         'page': 'home',
     })
@@ -213,6 +217,21 @@ def post_comment(request, slug):
             return redirect('users:event', slug=event.slug)
     messages.error(request, "Error. Your review has not been posted.")
     return redirect('users:event', slug=event.slug)
+
+def forum_comment(request, slug):
+    form = ForumCommentForm()
+    forum = Forum.objects.get(slug=slug)
+    if request.method == 'POST':
+        form = ForumCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.forum = forum
+            comment.save()
+            messages.success(request, "Success. Your comment has been posted successfully.")
+            return redirect('users:forum', slug=forum.slug)
+    messages.error(request, "Error. Your comment has not been posted.")
+    return redirect('users:forum', slug=forum.slug)
 
 def event(request, slug):
     comment_form = CommentForm()
@@ -498,12 +517,45 @@ def forums(request):
         'query': query,
         'page': 'forums',
     })
+    
+def forum(request, slug):
+    comment_form = ForumCommentForm()
+    slug_forum = Forum.objects.get(slug=slug)
+    slug_forum.total_views += 1
+    slug_forum.save(update_fields = ['total_views'])
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        total = slug_forum.ticket_price * quantity
+        payment = paypalrestsdk.Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal", #credit_card
+            },
+            "redirect_urls": {
+                "return_url": request.build_absolute_uri(reverse('users:execute_payment')),
+                "cancel_url": request.build_absolute_uri(reverse('users:payment_failed')),
+            },
+            "transactions": [
+                {
+                    "amount": {
+                        "total": total,  # Total amount in USD
+                        "currency": "USD",
+                    },
+                    "description": f"Ticket purchase for {slug_forum.title} (x{quantity})",
+                    
+                }
+            ],
+        })
 
-def forum(request, slug=None):
-    slug_event = Venue.objects.get(slug=slug)
+        if payment.create():
+            # messages.success(request, f"Ticket purchase for {slug_forum.title} successful")
+            return redirect(payment.links[1].href)  # Redirect to PayPal for payment
+        else:
+            return redirect('users:home')
     return render(request, 'forum.html', {
-        'venue': slug_event,
+        'forum': slug_forum,
         'page': 'forums',
+        'form': comment_form,
     })
     
 def create_forum(request):

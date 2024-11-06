@@ -51,3 +51,8 @@ class AttendantAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('user', 'event', 'rating', 'details')
     search_fields = ('user', 'event', 'details',)
+
+@admin.register(ForumComment)
+class ForumCommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'forum', 'details')
+    search_fields = ('user', 'forum', 'details',)

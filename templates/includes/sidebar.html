@@ -85,12 +85,12 @@
               <li><a href="{% url 'users:jobs' %}"> Jobs List</a></li>
             </ul>
           </li>
-          <li class="{% if page == 'donors' %}mm-active{% endif %}">
+          {% comment %} <li class="{% if page == 'donors' %}mm-active{% endif %}">
             <a href="{% url 'users:calendar' %}" aria-expanded="false">
               <i class="flaticon-group"></i>
               <span class="nav-text">Donors</span>
             </a>
-          </li>
+          </li> {% endcomment %}
           <li>
             <a href="{% url 'users:logout' %}" aria-expanded="false">
               <i class="flaticon-log-out-3"></i>
