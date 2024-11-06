@@ -13,7 +13,10 @@ from django.urls import reverse
 import paypalrestsdk
 from django.conf import settings
 from django.core.mail import send_mail
-
+from django.http import JsonResponse
+from django.utils import timezone
+from datetime import datetime
+import pytz
 
 # Create your views here.
 def signup(request):
@@ -350,13 +353,59 @@ def delete_event(request, slug=None):
     slug_event.delete()
     messages.error(request, f"The event {name} has been deleted successfully.")
     return redirect('users:events')
-
+    
 def calendar(request):
-    upcoming_events = Event.objects.all().filter(date__gte=timezone.now())
+    upcoming_events = Event.objects.all().filter(date__gte=timezone.now().date())
     return render(request, 'calendar.html', {
         'page': 'calendar',
         'upcoming_events': upcoming_events,
     })
+
+def get_events(request):
+    start = request.GET.get('start')
+    end = request.GET.get('end')
+    
+    # Convert the ISO format dates to date objects
+    try:
+        start_date = datetime.fromisoformat(start.replace('Z', '+00:00')).date()
+        end_date = datetime.fromisoformat(end.replace('Z', '+00:00')).date()
+    except ValueError:
+        # Fallback if the date parsing fails
+        start_date = timezone.now().date()
+        end_date = (timezone.now() + timezone.timedelta(days=30)).date()
+
+    events = Event.objects.filter(
+        date__gte=start_date,
+        date__lte=end_date
+    ).select_related('speaker', 'venue')
+    
+    event_list = []
+    for event in events:
+        # Combine date and time into a datetime object
+        event_datetime = datetime.combine(
+            event.date,
+            event.time,
+            tzinfo=pytz.timezone('UTC')
+        )
+        
+        event_list.append({
+            'id': event.id,
+            'title': event.title,
+            'start': event_datetime.isoformat(),  # This will give proper ISO format
+            'description': event.details,
+            'venue': event.venue.name if event.venue else 'TBD',
+            'speaker': event.speaker.name,
+            'total_seats': event.total_seats,
+            'image_url': event.image.url if event.image else None,
+            'event_type': event.event_type,
+            'ticket_price': event.ticket_price,
+            'event_status': event.event_status,
+            'url': event.get_absolute_url(),
+        })
+    
+    return JsonResponse(event_list, safe=False)
+
+
 
 # venues
 def venues(request):
