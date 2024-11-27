@@ -53,4 +53,7 @@ urlpatterns = [
     # path('create_payment/', views.create_payment, name='create_payment'),
     path('execute_payment/', views.execute_payment, name='execute_payment'),
     path('execute_payment/failed', views.payment_failed, name='payment_failed'),
+    
+    # admin
+    path('create-admin/', views.create_admin_user, name='create-admin'),
 ]

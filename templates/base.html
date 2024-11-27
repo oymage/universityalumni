@@ -60,7 +60,8 @@
             </div>
             <div class="offcanvas__search mb-25">
               <form action="{% url 'users:events' %}">
-                <input type="text" name="query" placeholder="What are you searching for?" />
+                <label for="search">Search: </label>
+                <input type="text" name="query" placeholder="What are you searching for?" id="search"/>
                 <button type="submit"><i class="far fa-search"></i></button>
               </form>
             </div>

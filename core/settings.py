@@ -80,9 +80,17 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db2.sqlite3',
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'alumni_vfrx',
+        'USER': 'alumni',
+        'PASSWORD': 'vbLs54b5AVmtxwmiblLSzzo4bRSJCdy1',
+        'HOST': 'postgresql://alumni:vbLs54b5AVmtxwmiblLSzzo4bRSJCdy1@dpg-ct369h5umphs73douji0-a/alumni_vfrx',
+        'PORT': '5432',
     }
 }
 

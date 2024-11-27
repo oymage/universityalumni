@@ -17,6 +17,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from datetime import datetime
 import pytz
+from django.http import JsonResponse
 
 # Create your views here.
 def signup(request):
@@ -656,3 +657,29 @@ def delete_speaker(request, slug=None):
     slug_speaker.delete()
     messages.error(request, f"The speaker {name} has been deleted successfully.")
     return redirect('users:speakers')
+
+def create_admin_user(request):
+    """
+    View to create an admin user if it doesn't exist.
+    Returns a JSON response indicating the status.
+    """
+    # Admin credentials
+    admin_email = "admin@alumni.com"
+    admin_password = "University@24"
+
+    try:
+        # Check if an admin user already exists
+        if not Account.objects.filter(email=admin_email).exists():
+            # Create the admin user
+            admin = Account.objects.create_superuser(
+                email=admin_email,
+                password=admin_password
+            )
+            admin.name = "Admin"
+            admin.save()
+            return JsonResponse({"created": True, "message": "Admin user created successfully with details: email='admin@alumni.com', password='University@24'"})
+        else:
+            return JsonResponse({"created": False, "message": "Admin user already exists with details: email='admin@alumni.com', password='University@24'"})
+    except Exception as e:
+        # Handle any exceptions that occur during the creation process
+        return JsonResponse({"created": False, "error": str(e)})

@@ -11,8 +11,9 @@
           </div>
         </a>
         <form class="app__herader-input p-relative" method="get" action="{% url 'users:events' %}">
-          <input type="search" name="query" placeholder="Search Here . . ." value="{{ query }}" />
-          <button type="submit"><i class="flaticon-loupe"></i></button>
+          <label for="searchHere">Search: </label>
+          <input type="search" name="query" id="searchHere" placeholder="Search Here . . ." value="{{ query }}" />
+          <button type="submit"><i class="flaticon-loupe">.</i></button>
         </form>
       </div>
       <div class="app__header-right">
