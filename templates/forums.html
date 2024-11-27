@@ -31,14 +31,14 @@
               <div class="event__venue-meta">
                 <div class="news__meta-status">
                   <span><i class="flaticon-calendar-1"></i></span>
-                  <span>{{ forum.get_booked_date }}</span>
+                  <span>{{ forum.updated_at|date:"d-m-Y" }}</span>
                 </div>
                 <div class="news__meta-status">
                   <span><i class="flaticon-clock"></i></span>
-                  <span>{{ forum.get_booked_time}}</span>
+                  <span>{{ forum.updated_at|date:"h:m a"}}</span>
                 </div>
               </div>
-              <h4 class="event__venue-title">{{ forum.name }}</h4>
+              <a href="{{ forum.get_absolute_url }}"><h4 class="event__venue-title">{{ forum.name }}</h4></a>
               <p>{{ forum.location }}</p>
             </div>
             <div class="event__venue-thumb">
