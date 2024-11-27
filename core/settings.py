@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': 'alumni_vfrx',
         'USER': 'alumni',
         'PASSWORD': 'vbLs54b5AVmtxwmiblLSzzo4bRSJCdy1',
-        'HOST': 'localhost',
+        'HOST': 'dpg-ct369h5umphs73douji0-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }
